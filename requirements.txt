@@ -1,0 +1,5 @@
+app.js
+app.py
+index.html
+palettes.db
+styles.css
