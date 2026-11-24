@@ -84,6 +84,7 @@ class PaletteHandler(BaseHTTPRequestHandler):
             return
 
         static_files = {
+            "/favicon.png": ("Tiêu đề.png", "image/png"),
             "/": ("index.html", "text/html; charset=utf-8"),
             "/index.html": ("index.html", "text/html; charset=utf-8"),
             "/styles.css": ("styles.css", "text/css; charset=utf-8"),
