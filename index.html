@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f2">
+  <title>ColorStudio — Xưởng màu của bạn</title>
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="ColorStudio trang chủ">
+      <span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span>color<span class="brand-light">studio</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Điều hướng chính">
+      <a class="nav-link active" href="#studio">Xưởng màu</a>
+      <a class="nav-link" href="#tools">Công cụ</a>
+      <a class="nav-link" href="#library">Bộ sưu tập <span id="savedCount" class="nav-count">0</span></a>
+    </nav>
+    <span class="local-badge"><span></span> Không gian riêng tư</span>
+  </header>
+
+  <main>
+    <section class="intro" id="studio">
+      <div>
+        <p class="eyebrow"><span class="eyebrow-line"></span> XƯỞNG MÀU SÁNG TẠO</p>
+        <h1>Màu sắc của bạn,<br><span>theo cách của bạn.</span></h1>
+        <p class="intro-copy">Tạo bảng màu hài hòa, lấy cảm hứng từ màn hình và lưu lại mọi ý tưởng trong một không gian gọn gàng.</p>
+      </div>
+      <div class="intro-note"><span class="note-spark">✳</span><span>Một chút màu sắc<br>làm nên khác biệt.</span></div>
+    </section>
+
+    <section class="workspace" aria-label="Trình tạo bảng màu">
+      <div class="section-heading">
+        <div><p class="eyebrow">01 / TẠO BỘ MÀU</p><h2>Bảng màu của bạn</h2></div>
+        <div class="generator-actions">
+          <label class="sr-only" for="harmony">Kiểu phối màu</label>
+          <select id="harmony" class="select-control">
+            <option value="analogous">Tương đồng</option>
+            <option value="complementary">Bổ túc</option>
+            <option value="triadic">Bộ ba</option>
+            <option value="monochromatic">Đơn sắc</option>
+            <option value="random">Ngẫu nhiên</option>
+          </select>
+          <button id="generateBtn" class="button button-dark"><span class="button-icon">✳</span> Tạo bảng màu</button>
+        </div>
+      </div>
+
+      <div id="paletteGrid" class="palette-grid" aria-live="polite"></div>
+      <div class="palette-footer">
+        <p><kbd>Space</kbd> để tạo bảng màu mới <span class="dot-separator">·</span> Nhấn biểu tượng khóa để giữ màu yêu thích</p>
+        <div class="palette-footer-actions">
+          <button id="savePaletteBtn" class="button button-light"><span>＋</span> Lưu bộ màu</button>
+          <div class="export-wrap">
+            <button id="exportBtn" class="button button-light">Tải xuống <span class="chevron">⌄</span></button>
+            <div id="exportMenu" class="export-menu hidden">
+              <button data-export="css">CSS variables (.css)</button>
+              <button data-export="json">JSON (.json)</button>
+              <button data-export="txt">Danh sách HEX (.txt)</button>
+              <button data-export="png">Hình ảnh bảng màu (.png)</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="tools-section" id="tools">
+      <div class="section-heading tools-title">
+        <div><p class="eyebrow">02 / KHÁM PHÁ MÀU</p><h2>Công cụ màu sắc</h2></div>
+        <span class="subtle-label">Mọi thứ bạn cần, ngay tại đây.</span>
+      </div>
+      <div class="tool-grid">
+        <article class="tool-card format-card">
+          <div class="tool-heading"><span class="tool-number">A</span><div><h3>Mã màu</h3><p>Chuyển đổi và sao chép định dạng màu</p></div></div>
+          <div class="color-preview-row">
+            <label id="formatSwatch" class="format-swatch" for="colorInput" title="Chọn màu">
+              <input id="colorInput" type="color" value="#80967B" aria-label="Chọn màu">
+            </label>
+            <div class="hex-entry"><label for="hexInput">HEX</label><input id="hexInput" value="#80967B" maxlength="7" spellcheck="false"><button class="copy-button" data-copy="hex" aria-label="Sao chép HEX">⧉</button></div>
+          </div>
+          <div class="format-fields">
+            <div class="format-field"><span>RGB</span><code id="rgbValue">128, 150, 123</code><button class="copy-button" data-copy="rgb" aria-label="Sao chép RGB">⧉</button></div>
+            <div class="format-field"><span>HSL</span><code id="hslValue">110, 12%, 54%</code><button class="copy-button" data-copy="hsl" aria-label="Sao chép HSL">⧉</button></div>
+          </div>
+          <p id="formatError" class="inline-error" role="status"></p>
+        </article>
+
+        <article class="tool-card blend-card">
+          <div class="tool-heading"><span class="tool-number">B</span><div><h3>Pha trộn màu</h3><p>Khám phá sắc độ mới từ hai màu</p></div></div>
+          <div class="blend-inputs">
+            <label class="blend-color"><span>Màu thứ nhất</span><input id="blendColorA" type="color" value="#F2B880"></label>
+            <span class="blend-plus">+</span>
+            <label class="blend-color"><span>Màu thứ hai</span><input id="blendColorB" type="color" value="#A7C4A0"></label>
+            <span class="blend-equals">=</span>
+            <button id="blendResult" class="blend-result" aria-label="Sao chép màu pha trộn"><span id="blendHex">#CDbe90</span><span class="blend-copy-hint">Nhấn để sao chép</span></button>
+          </div>
+          <label class="range-label" for="blendAmount"><span>Tỉ lệ pha trộn</span><span id="blendPercent">50 / 50</span></label>
+          <input id="blendAmount" class="range-input" type="range" min="0" max="100" value="50">
+        </article>
+
+        <article class="tool-card picker-card">
+          <div class="tool-heading"><span class="tool-number">C</span><div><h3>Lấy mẫu màu</h3><p>Chọn màu từ màn hình máy tính của bạn</p></div></div>
+          <div class="picker-content">
+            <button id="screenPickBtn" class="screen-picker-button"><span class="picker-crosshair">⌖</span><span><strong>Lấy màu từ màn hình</strong><small>Trình duyệt sẽ yêu cầu quyền chia sẻ</small></span><span class="picker-arrow">↗</span></button>
+            <div id="screenCaptureArea" class="screen-capture hidden">
+              <video id="screenVideo" autoplay playsinline muted></video>
+              <canvas id="screenCanvas" class="hidden"></canvas>
+              <div class="capture-footer"><span>Nhấn vào điểm ảnh để lấy màu</span><button id="stopCaptureBtn" class="text-button">Dừng chia sẻ</button></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="library-section" id="library">
+      <div class="section-heading library-heading">
+        <div><p class="eyebrow">03 / KHO LƯU TRỮ</p><h2>Bộ màu đã lưu <span id="libraryCount" class="count-pill">0</span></h2></div>
+        <span class="subtle-label">Lưu trên máy tính này, chỉ bạn có thể xem.</span>
+      </div>
+      <div id="libraryGrid" class="library-grid"></div>
+      <div id="emptyLibrary" class="empty-library"><span class="empty-icon">✳</span><p>Chưa có bộ màu nào được lưu.</p><span>Tạo bảng màu bạn yêu thích, rồi nhấn “Lưu bộ màu”.</span></div>
+    </section>
+  </main>
+
+  <footer><a class="brand footer-brand" href="#"><span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>color<span class="brand-light">studio</span></span></a><span>Được tạo cho những ý tưởng đầy màu sắc.</span><span>© 2026 ColorStudio</span></footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
